@@ -1,0 +1,13 @@
+.container {
+padding: 3rem;
+margin: auto;
+}
+
+.flex {
+  display: flex;
+  align-items: baseline;
+}
+
+.flex button {
+  margin-left: 3rem;
+}

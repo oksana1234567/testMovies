@@ -1,0 +1,72 @@
+
+<div class="container">
+
+<form>
+  <h4>Choose genre of films</h4>
+    <div class="flex">
+      <div>
+      <mat-form-field appearance="fill">
+        <mat-label *ngIf="!selectedGenre">Genre</mat-label>
+        <select matNativeControl [(ngModel)]="selectedGenre" name="genre" #toemail="ngModel">
+          <option value="" selected></option>
+          <option *ngFor="let genre of genres" [value]="genre">
+              {{genre}}
+          </option>
+        </select>
+      </mat-form-field>
+      </div>
+          <div>
+            <button mat-raised-button color="accent" (click)="doMoviesByGenres(selectedGenre)" [disabled]="!selectedGenre" style="margin-top:1rem">Find {{selectedGenre}}</button>
+          </div>
+      </div>
+</form>
+
+<hr>
+
+<div  *ngIf="!moviesByGenre$">
+  <div *ngIf="(movies$ | async) as movies">
+    <ul *ngFor="let movie of movies">
+      <li>
+        <mat-card class="example-card">
+          <mat-card-title>ID: <b> {{movie.id}} </b> - <b> {{movie.name}} </b></mat-card-title>
+            <mat-card-subtitle>Year of perfomance - {{movie.year}}</mat-card-subtitle>
+              <mat-card-content>
+                <p>Genre - {{movie.genre1}} | {{movie.genre2}}</p>
+              </mat-card-content>
+            </mat-card>
+
+          <hr>
+
+      </li>
+    </ul>
+        <mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="[10]" (page)="onPaginateChange($event)"></mat-paginator>
+  </div>
+</div>
+
+<div *ngIf="moviesByGenre$">
+  <div *ngIf="(moviesByGenre$ | async) as movies">
+    <ul *ngFor="let movie of movies">
+      <li>
+        <mat-card class="example-card">
+          <mat-card-title>ID: <b> {{movie.id}} </b> - <b> {{movie.name}} </b></mat-card-title>
+          <mat-card-subtitle>Year of perfomance - {{movie.year}}</mat-card-subtitle>
+          <mat-card-content>
+            <p>Genre - {{movie.genre1}} | {{movie.genre2}}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <hr>
+
+      </li>
+    </ul>
+      <mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="[10]" (page)="onPaginateChange($event)"></mat-paginator>
+  </div>
+</div>
+
+  <div *ngIf="!genres">
+    <mat-progress-bar mode="query"></mat-progress-bar>
+</div>
+
+</div>
+
+
